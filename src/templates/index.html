@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grade Scraper</title>
+</head>
+<body>
+    <p>This tool scrapes E-Vision any module and assessment results.</p>
+    <input id="username" type="text" placeholder="Evision Username"/>
+    <input id="password" type="password" placeholder="Evision Password">
+    <input id="submitBtn" type="submit" value="Submit"><br>
+    <table id="results">
+        <tr><th>Module</th><th>Result</th><th>Grade Points</th><th>Credits</th></tr>
+    </table>
+</body>
+<script type="text/javascript">
+    const ipc = require("electron").ipcRenderer;
+    const downloadButton = document.getElementById('submitBtn');
+    downloadButton.addEventListener('click', () => {
+        downloadButton.disabled = true;
+        ipc.send('download', {
+            'username': document.getElementById("username").value,
+            'password': document.getElementById("password").value
+        })
+    });
+
+    ipc.on('downloaded', function (event, args) {
+
+        args.forEach(entry => {
+            document.getElementById("results").insertAdjacentHTML('beforeend', `<tr>
+                <td>${entry.module_code} - ${entry.title}</td>
+                <td>${entry.grade}</td>
+                <td>${entry.gradeInfo.gradePoint}</td>
+                <td>${entry.credits}</td>
+            </tr>`);
+        });
+    })
+</script>
+</html>

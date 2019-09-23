@@ -1,0 +1,20 @@
+{
+  "name": "brunel-grade-calculator",
+  "version": "1.0.0",
+  "description": "Degree Class Grade Calculator for Brunel University Undergraduate courses",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "jest"
+  },
+  "author": "Dominic Cobo",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^6.0.10",
+    "jest": "^24.9.0"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "puppeteer": "^1.20.0"
+  }
+}
